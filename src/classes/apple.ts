@@ -11,7 +11,6 @@ class Apple {
   }
 
   show() {
-    rectMode(CENTER);
     fill(255, 0, 0);
     rect(this.x, this.y, this.scale, this.scale);
   }

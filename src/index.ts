@@ -14,22 +14,23 @@ function setup() {
 }
 
 function collision(s: Snake, a: Apple) {
-  if (
-    s.x + s.scale / 2 <= a.x - a.scale / 2 &&
-    s.x - s.scale / 2 >= a.x + a.scale / 2 &&
-    s.y + s.scale / 2 <= a.y - a.scale / 2 &&
-    s.y - s.scale / 2 >= a.y + a.scale / 2
-  )
-    console.log("eaten");
+  return (
+    s.x < a.x + a.scale &&
+    s.x + s.scale > a.x &&
+    s.y < a.y + a.scale &&
+    s.y + s.scale > a.y
+  );
 }
 
 function draw() {
   background(0);
   snake.show();
-  snake.update();
+  snake.update(snake);
   apple.show();
 
-  collision(snake, apple);
+  if (collision(snake, apple)) {
+    snake.eat(apple);
+  }
 }
 
 function keyPressed() {

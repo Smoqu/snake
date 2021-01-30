@@ -1,5 +1,5 @@
 class Snake {
-  trail: Array<Object>;
+  trail: Array<{ x: number; y: number }>;
   x: number;
   y: number;
   scale: number;
@@ -7,11 +7,10 @@ class Snake {
   isDead: boolean;
 
   constructor() {
-    this.trail = [];
-
     this.x = Math.round(width / 2);
     this.y = Math.round(height / 2);
 
+    this.trail = [];
     this.scale = Math.round(size / 75);
 
     this.direction = "TOP";
@@ -20,9 +19,18 @@ class Snake {
   }
 
   show() {
-    rectMode(CENTER);
-    fill(255, 255, 255);
+    fill(255, 0, 255);
     rect(this.x, this.y, this.scale, this.scale);
+    this.trail.forEach((piece, index) => {
+      this.update(piece);
+      fill(255, 255, 255);
+      rect(
+        piece.x + this.scale * index + 1,
+        piece.y + this.scale * index + 1,
+        this.scale,
+        this.scale
+      );
+    });
   }
 
   move(keyCode: number) {
@@ -50,20 +58,20 @@ class Snake {
     else return false;
   }
 
-  update() {
+  update(piece: { x: number; y: number }) {
     if (!this.isDead) {
       switch (this.direction) {
         case "TOP":
-          this.y -= this.scale;
+          piece.y -= this.scale;
           break;
         case "BOTTOM":
-          this.y += this.scale;
+          piece.y += this.scale;
           break;
         case "RIGHT":
-          this.x += this.scale;
+          piece.x += this.scale;
           break;
         case "LEFT":
-          this.x -= this.scale;
+          piece.x -= this.scale;
           break;
         default:
           break;
@@ -74,5 +82,12 @@ class Snake {
     }
 
     if (this.borderColision()) this.isDead = true;
+  }
+
+  eat(apple: Apple) {
+    this.trail.push({ x: this.x, y: this.y });
+    apple.x = random(0, width);
+    apple.y = random(0, height);
+    console.log(this.trail);
   }
 }
