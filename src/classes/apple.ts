@@ -4,14 +4,13 @@ class Apple {
 
   scale: number;
 
-  constructor() {
-    this.scale = Math.round(size / 75);
-    this.x = Math.round(random(0, width - this.scale / 2));
-    this.y = Math.round(random(0, height - this.scale / 2));
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+    this.scale = floor(size / 100);
   }
 
   show() {
-    fill(255, 0, 0);
     rect(this.x, this.y, this.scale, this.scale);
   }
 }

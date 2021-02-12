@@ -9,30 +9,24 @@ function setup() {
   background(0);
   frameRate(10);
 
-  snake = new Snake();
-  apple = new Apple();
+  snake = new Snake(width / 2, height / 2);
+  apple = new Apple(random(0, size), random(0, size));
 }
 
-function collision(s: Snake, a: Apple) {
-  return (
-    s.x < a.x + a.scale &&
-    s.x + s.scale > a.x &&
-    s.y < a.y + a.scale &&
-    s.y + s.scale > a.y
-  );
-}
+// function collision(s: Snake, a: Apple) {
+//   return (
+//     s.x < a.x + a.scale &&
+//     s.x + s.scale > a.x &&
+//     s.y < a.y + a.scale &&
+//     s.y + s.scale > a.y
+//   );
+// }
 
 function draw() {
-  background(0);
   snake.show();
-  snake.update(snake);
   apple.show();
-
-  if (collision(snake, apple)) {
-    snake.eat(apple);
-  }
 }
 
 function keyPressed() {
-  snake.move(keyCode);
+  // snake.move(keyCode);
 }
