@@ -1,16 +1,23 @@
 class Apple {
-  x: number;
-  y: number;
-
   scale: number;
-
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-    this.scale = floor(size / 100);
+  self: p5.Vector;
+  constructor() {
+    this.scale = ceil(size / 80);
+    this.self = this.pickLocation();
   }
 
   show() {
-    rect(this.x, this.y, this.scale, this.scale);
+    beginShape();
+    fill(0, 255, 0);
+    rect(this.self.x, this.self.y, this.scale, this.scale);
+    endShape();
+  }
+
+  pickLocation() {
+    const cols = floor(width / this.scale);
+    const rows = floor(height / this.scale);
+    let self = createVector(floor(random(cols)), floor(random(rows)));
+    self.mult(this.scale);
+    return self;
   }
 }
